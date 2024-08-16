@@ -49,7 +49,7 @@ on :mouse_down do |event|
   
   if image_clicked?(@image1, x, y)
     puts "Play Flappy Bird!"
-    system("ruby /home/vboxuser/repos/gameface/games/flappy_bird/main.rb") #this doesn't work...yet!
+    system("ruby /home/kids/repos/Gaming/games/flappy_bird/main.rb") #this doesn't work...yet!
   elsif image_clicked?(@image2, x, y)
     puts "Play Reaction Game!"
     system("ruby games/reaction_game/reaction_game.rb")

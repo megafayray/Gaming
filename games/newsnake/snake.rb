@@ -18,6 +18,7 @@ class Snake
 
   def draw
     @positions.each do |position|
+      sleep(1.0/36.0) #slows down
       Square.new(x: position[0] * SQUARE_SIZE, y: position[1] * SQUARE_SIZE, size: SQUARE_SIZE - 1, color: 'white')
     end
   end
@@ -88,6 +89,7 @@ class Game
   end
 
   def draw
+    sleep(1.0/72.0) #slows down
     Square.new(x: @ball_x * SQUARE_SIZE, y: @ball_y * SQUARE_SIZE, size: SQUARE_SIZE, color: 'yellow')
     Text.new(text_message, color: 'green', x: 10, y: 10, size: 25, z: 1)
   end

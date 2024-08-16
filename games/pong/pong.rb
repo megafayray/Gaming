@@ -8,6 +8,7 @@ BASE_COLOR = '#FFFFFF'
 set background: BACKGROUND_COLOR
 set width: WIDTH, height: HEIGHT
 set title: 'pong'
+@game_finished = false
 
 def draw_dotted_line
   (0..HEIGHT).step(25) do |i|
@@ -30,7 +31,7 @@ class Paddle
   end 
 
   def draw
-    @shape = Rectangle.new(x: @x, y: @y, width: 7, height: 30, color: BASE_COLOR)
+    @shape = Rectangle.new(x: @x, y: @y, width: 7, height: 60, color: BASE_COLOR)
   end 
 
   def move_up
@@ -121,11 +122,23 @@ update do
   end
 
   if ball.over_map?
-    if ball.x == 0 
+    if ball.x == 0
       opponent.score += 1
-    elsif ball.x == WIDTH 
+    elsif ball.x == WIDTH
       player.score += 1
     end 
+
+    if player.score == 10
+      Text.new('YOU WON!', x: WIDTH/4, y: HEIGHT/3, size: 75, color: 'white')
+      Text.new('Press "R" to restart')
+      @game_finished = true
+      next
+    elsif opponent.score == 10
+      Text.new('GAMEOVER', x: WIDTH/4, y: HEIGHT/3, size: 75, color: 'white')
+      Text.new('Press "R" to restart')
+      @game_finished = true
+      next
+    end
 
     ball.reset_position
   end 
@@ -137,6 +150,17 @@ on :key_held do |event|
   elsif event.key == 'down'
     player.move_down
   end
+
+  if @game_finished && event.key == 'r'
+    @game_finished = false
+    player_score = "0"
+    opponent_score = "0"
+    player.score = 0
+    opponent.score = 0
+    draw_players_score(0,0)
+    ball.reset_position
+  end
+
 end
 
 show
